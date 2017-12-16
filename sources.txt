@@ -1,0 +1,5 @@
+https://en.wikipedia.org/wiki/Bag-of-words_model
+https://machinelearningmastery.com/predict-sentiment-movie-reviews-using-deep-learning/
+http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html
+
+https://pythonprogramminglanguage.com/bag-of-words/
