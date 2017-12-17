@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import random
 from keras.datasets import imdb
 from sklearn.feature_extraction.text import CountVectorizer
  
@@ -52,3 +53,14 @@ print( vectorizer.fit_transform(yall).todense() )
 print( vectorizer.vocabulary_ )
 print(len(vectorizer.vocabulary_))
 # print(X[0])
+
+
+trainX = amazonX + imdbX + yelpX
+trainY = amazonY + imdbY + yelpY
+
+shuffle = list(zip(trainX,trainY))
+random.shuffle(shuffle)
+trainX , trainY = zip(*shuffle)
+
+
+
