@@ -34,6 +34,9 @@ print(trainY[1])
 trainX = vectorizedTrainX
 print( vectorizer.vocabulary_.get("great") )
 print( vectorizer.vocabulary_.get("phone") )
+print (len(max(trainX, key=len)))
+
+## max length is 71 https://docs.scipy.org/doc/numpy-1.10.0/reference/generated/numpy.pad.html
 
 # Great phone!.
 # r
