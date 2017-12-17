@@ -45,11 +45,6 @@ def getData():
 	print(len(yelpY))
 
 	#print(yall)
-
-	vectorizer = CountVectorizer()
-	print( vectorizer.fit_transform(yall).todense() )
-	print( vectorizer.vocabulary_ )
-	print(len(vectorizer.vocabulary_))
 	# print(X[0])
 
 

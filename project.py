@@ -11,7 +11,20 @@ yelpFile="yelp_labelled.txt"
 
 
 trainX, trainY = downloadData.getData()
-print(trainX[0])
+
+
+vectorizer = CountVectorizer()
+print( vectorizer.fit_transform(trainX).todense() )
+print( vectorizer.vocabulary_ )
+print(len(vectorizer.vocabulary_))
+
+vectorizedTrainX = vectorizer.transform(trainX)
+print(trainX[1])
+print(vectorizedTrainX[1])
+print(trainY[1])
+trainX = vectorizedTrainX
+
+
 
 
 
