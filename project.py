@@ -23,7 +23,9 @@ arrayX = []
 for x in trainX:
 	transformed = []
 	for word in x.split():
-		transformed.append(vectorizer.vocabulary_.get(word))
+		num = vectorizer.vocabulary_.get(word)
+		add = num if num!=None else 0
+		transformed.append(add)
 	vectorizedTrainX.append(transformed)
 
 print(trainX[1])
