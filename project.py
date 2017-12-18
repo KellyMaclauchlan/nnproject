@@ -26,6 +26,10 @@ for x in trainX:
 		num = vectorizer.vocabulary_.get(word)
 		add = num if num!=None else 0
 		transformed.append(add)
+	
+	while len(transformed) < 71:
+		transformed.append(0)
+
 	vectorizedTrainX.append(transformed)
 
 print(trainX[1])
@@ -42,3 +46,20 @@ print (len(max(trainX, key=len)))
 # r
 #   (0, 2023)	1
 #   (0, 3322)
+
+
+#npArr = np.array(np.zeros([len(trainX),71]))
+npArr = np.array(trainX)
+print(npArr)
+
+# for i in range(len(trainX)):
+# 	for j in range(len(trainX[i])):
+# 		npArr[i][j] = trainX[j]
+# print(npArr[1])
+# print(npArr.shape)
+
+
+
+
+
+
