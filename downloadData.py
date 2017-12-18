@@ -44,20 +44,27 @@ def getData(lengthSize=71):
 	#turn the input sentence into an array mapped to the wanted size
 	vectorizer = CountVectorizer()
 	vectorizer.fit_transform(trX).todense() 
-
+	print(len(vectorizer.vocabulary_))
 	vectorizedtrX = []
 	arrayX = []
-	for x in trX:
-		transformed = []
-		for word in x.split():
-			num = vectorizer.vocabulary_.get(word)
-			add = num if num!=None else 0
-			transformed.append(add)
-		
-		while len(transformed) < lengthSize:
-			transformed.append(0)
 
+	for x in trX:
+		transformed=[]
+		for w in vectorizer.vocabulary_.keys():
+			transformed.append(x.count(w))
+		
 		vectorizedtrX.append(transformed)
+
+	# 	transformed = []
+	# 	for word in x.split():
+	# 		num = vectorizer.vocabulary_.get(word)
+	# 		add = num if num!=None else 0
+	# 		transformed.append(add)
+		
+	# 	while len(transformed) < lengthSize:
+	# 		transformed.append(0)
+
+	# 	vectorizedtrX.append(transformed)
 
 	trX = vectorizedtrX
 
