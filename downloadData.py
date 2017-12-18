@@ -20,6 +20,7 @@ def getData():
 			Y.append(data[1])
 		return X, Y, allText
 
+	def makeArray(x): return [1,0] if x=='0' else [0,1]
 	# read in amazon file
 	amazonX, amazonY, aall = readData(amazonFile)
 	# test data
@@ -50,6 +51,8 @@ def getData():
 
 	trainX = amazonX + imdbX + yelpX
 	trainY = amazonY + imdbY + yelpY
+	trainY = list(map(makeArray,trainY))
+
 
 	shuffle = list(zip(trainX,trainY))
 	random.shuffle(shuffle)
