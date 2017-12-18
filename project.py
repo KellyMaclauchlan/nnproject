@@ -21,25 +21,19 @@ def init_weights(shape):
     return tf.Variable(tf.random_normal(shape, stddev=0.01))
 
 
-def model(X, w_h1,w_h2,w_h3,w_h4,w_h5,w_h6,w_h7, w_o):
+def model(X, w_h1,w_h2,w_h3,w_h4, w_o):
     h = tf.nn.relu(tf.matmul(X, w_h1)) # this is a basic mlp
     h2 = tf.nn.relu(tf.matmul(h, w_h2)) #layer2
     h3 = tf.nn.relu(tf.matmul(h2, w_h3))
     h4 = tf.nn.relu(tf.matmul(h3, w_h4))
-    h5 = tf.nn.relu(tf.matmul(h4, w_h5))
-    h6 = tf.nn.relu(tf.matmul(h5, w_h6))
-    h7 = tf.nn.relu(tf.matmul(h6, w_h7))
-    return tf.matmul(h7, w_o)
+    return tf.matmul(h4, w_o)
 # mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 trX, teX,trY,  teY = X_train, X_test, y_train, y_test#mnist.train.images, mnist.train.labels, mnist.test.images, mnist.test.labels
 
-size_h1 = tf.constant(4670, dtype=tf.int32)
-size_h2 = tf.constant(3210, dtype=tf.int32)
-size_h3 = tf.constant(2880, dtype=tf.int32)
-size_h4 = tf.constant(2367, dtype=tf.int32)
-size_h5 = tf.constant(1234, dtype=tf.int32)
-size_h6 = tf.constant(720, dtype=tf.int32)
-size_h7 = tf.constant(150, dtype=tf.int32)
+size_h1 = tf.constant(3670, dtype=tf.int32)
+size_h2 = tf.constant(2210, dtype=tf.int32)
+size_h3 = tf.constant(1180, dtype=tf.int32)
+size_h4 = tf.constant(120, dtype=tf.int32)
 
 X = tf.placeholder("float", [None, 5155])
 Y = tf.placeholder("float", [None, 2])
@@ -48,12 +42,9 @@ w_h1 = init_weights([5155, size_h1]) # create symbolic variables
 w_h2 = init_weights([size_h1, size_h2])
 w_h3 = init_weights([size_h2, size_h3])
 w_h4 = init_weights([size_h3, size_h4])
-w_h5 = init_weights([size_h4, size_h5])
-w_h6 = init_weights([size_h5, size_h6])
-w_h7 = init_weights([size_h6, size_h7])
-w_o = init_weights([size_h7, 2])
+w_o = init_weights([size_h4, 2])
 
-py_x = model(X, w_h1,w_h2,w_h3,w_h4,w_h5,w_h6,w_h7, w_o)
+py_x = model(X, w_h1,w_h2,w_h3,w_h4, w_o)
 
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=py_x, labels=Y)) # compute costs
 train_op = tf.train.GradientDescentOptimizer(0.05).minimize(cost) # construct an optimizer
