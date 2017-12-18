@@ -2,54 +2,14 @@ import tensorflow as tf
 import numpy as np
 import random
 import downloadData
-from sklearn.feature_extraction.text import CountVectorizer
+
 from sklearn.model_selection import train_test_split
 amazonFile="amazon_cells_labelled.txt"
 imdbFile="imdb_labelled.txt"
 yelpFile="yelp_labelled.txt"
 
 
-trX, trY = downloadData.getData()
-
-
-vectorizer = CountVectorizer()
-vectorizer.fit_transform(trX).todense() 
-#print( vectorizer.vocabulary_ )
-print(len(vectorizer.vocabulary_))
-
-vectorizedtrX = []
-arrayX = []
-for x in trX:
-	transformed = []
-	for word in x.split():
-		num = vectorizer.vocabulary_.get(word)
-		add = num if num!=None else 0
-		transformed.append(add)
-	
-	while len(transformed) < 81:
-		transformed.append(0)
-
-	vectorizedtrX.append(transformed)
-
-print(trX[1])
-print(vectorizedtrX[1])
-print(trY[1])
-trX = vectorizedtrX
-print( vectorizer.vocabulary_.get("displeased") )
-print( vectorizer.vocabulary_.get("phone") )
-print (len(max(trX, key=len)))
-print (len (trX))
-
-## max length is 71 https://docs.scipy.org/doc/numpy-1.10.0/reference/generated/numpy.pad.html
-
-# Great phone!.
-# r
-#   (0, 2023)	1
-#   (0, 3322)
-
-
-#npArr = np.array(np.zeros([len(trX),71]))
-npArr = np.array(trX)
+trX, trY = downloadData.getData(81)
 
 
 batch_size = 300
@@ -105,7 +65,6 @@ w_o = init_weights([625, 2],"w_o")         # FC 625 inputs, 10 outputs (labels)
 p_keep_conv = tf.placeholder("float")
 p_keep_hidden = tf.placeholder("float")
 py_x = model(X, w,w2, w_fc, w_o, p_keep_conv, p_keep_hidden)
-#InvalidArgumentError (see above for traceback): logits and labels must be same size: logits_size=[128,10] labels_size=[80,10]
 with tf.name_scope("cost"):
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=py_x, labels=Y))
 
