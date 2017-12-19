@@ -69,4 +69,4 @@ def getData(lengthSize=71):
 	trX = vectorizedtrX
 
 
-	return trX, trY
+	return trX, trY,len(vectorizer.vocabulary_)

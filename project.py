@@ -9,7 +9,7 @@ imdbFile="imdb_labelled.txt"
 yelpFile="yelp_labelled.txt"
 
 
-trX, trY = downloadData.getData(71)
+trX, trY, dictionarySize = downloadData.getData(71)
 
 
 batch_size = 300
@@ -30,18 +30,19 @@ def model(X, w_h1,w_h2,w_h3,w_h4, w_o):
 # mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 trX, teX,trY,  teY = X_train, X_test, y_train, y_test#mnist.train.images, mnist.train.labels, mnist.test.images, mnist.test.labels
 
-size_h1 = tf.constant(3670, dtype=tf.int32)
-size_h2 = tf.constant(2210, dtype=tf.int32)
-size_h3 = tf.constant(1180, dtype=tf.int32)
-size_h4 = tf.constant(120, dtype=tf.int32)
+size_h1 = tf.constant(2000, dtype=tf.int32)
+size_h2 = tf.constant(2000, dtype=tf.int32)
+size_h3 = tf.constant(2000, dtype=tf.int32)
+size_h4 = tf.constant(2000, dtype=tf.int32)
 
-X = tf.placeholder("float", [None, 5155])
+X = tf.placeholder("float", [None, dictionarySize])
 Y = tf.placeholder("float", [None, 2])
 
-w_h1 = init_weights([5155, size_h1]) # create symbolic variables
+w_h1 = init_weights([dictionarySize, size_h1]) # create symbolic variables
 w_h2 = init_weights([size_h1, size_h2])
 w_h3 = init_weights([size_h2, size_h3])
 w_h4 = init_weights([size_h3, size_h4])
+
 w_o = init_weights([size_h4, 2])
 
 py_x = model(X, w_h1,w_h2,w_h3,w_h4, w_o)
@@ -58,7 +59,7 @@ with tf.Session() as sess:
     for i in range(100):
         for start, end in zip(range(0, len(trX), 128), range(128, len(trX)+1, 128)):
             sess.run(train_op, feed_dict={X: trX[start:end], Y: trY[start:end]})
-        print(i, np.mean(np.argmax(teY, axis=1) ==
+        print( np.mean(np.argmax(teY, axis=1) ==
                          sess.run(predict_op, feed_dict={X: teX})))
 
 
