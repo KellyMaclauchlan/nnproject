@@ -1,0 +1,9 @@
+results: 
+test size 3000 
+ correct negitives: 1142
+ correct positives: 1018
+ total correct: 2160		72%ACCURACY
+
+false positives: 100
+false negitives: 277
+neutrals: 463
