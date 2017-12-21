@@ -1,12 +1,11 @@
-from keras.datasets import imdb
 from sklearn.feature_extraction.text import CountVectorizer
 import random
-from sklearn.feature_extraction.text import CountVectorizer
 amazonFile="amazon_cells_labelled.txt"
 imdbFile="imdb_labelled.txt"
 yelpFile="yelp_labelled.txt"
-# lengthSize determins the length for padding
-def getData(lengthSize=71):
+
+
+def getData():
 	# read in files
 	def readData(fileName):
 		with open(fileName) as f:
@@ -28,7 +27,6 @@ def getData(lengthSize=71):
 	# read in imdb file
 	imdbX, imdbY, iall = readData(imdbFile)
 
-
 	#read in yelp file
 	yelpX, yelpY, yall = readData(yelpFile)
 
@@ -47,7 +45,7 @@ def getData(lengthSize=71):
 	print(len(vectorizer.vocabulary_))
 	vectorizedtrX = []
 	arrayX = []
-
+	#create an array of the dictionary size where each value is the number of times that word appears (bag-of-words model)
 	for x in trX:
 		transformed=[]
 		for w in vectorizer.vocabulary_.keys():
@@ -55,18 +53,19 @@ def getData(lengthSize=71):
 		
 		vectorizedtrX.append(transformed)
 
+	# if we want to have the input as a sentence turned into an array of numbers for each word
 	# 	transformed = []
 	# 	for word in x.split():
 	# 		num = vectorizer.vocabulary_.get(word)
 	# 		add = num if num!=None else 0
 	# 		transformed.append(add)
 		
-	# 	while len(transformed) < lengthSize:
+	# 	while len(transformed) < 71:
 	# 		transformed.append(0)
 
 	# 	vectorizedtrX.append(transformed)
 
+	#set the X values to the dictionary transformed input
 	trX = vectorizedtrX
-
 
 	return trX, trY,len(vectorizer.vocabulary_)
