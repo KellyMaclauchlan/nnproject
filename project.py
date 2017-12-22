@@ -30,10 +30,10 @@ def model(X, w_h1,w_h2,w_h3,w_h4, w_o):
 # mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 trX, teX,trY,  teY = X_train, X_test, y_train, y_test#mnist.train.images, mnist.train.labels, mnist.test.images, mnist.test.labels
 
-size_h1 = tf.constant(2000, dtype=tf.int32)
-size_h2 = tf.constant(2000, dtype=tf.int32)
-size_h3 = tf.constant(2000, dtype=tf.int32)
-size_h4 = tf.constant(2000, dtype=tf.int32)
+size_h1 = tf.constant(3000, dtype=tf.int32)
+size_h2 = tf.constant(3000, dtype=tf.int32)
+size_h3 = tf.constant(3000, dtype=tf.int32)
+size_h4 = tf.constant(3000, dtype=tf.int32)
 
 X = tf.placeholder("float", [None, dictionarySize])
 Y = tf.placeholder("float", [None, 2])
@@ -53,8 +53,13 @@ predict_op = tf.argmax(py_x, 1)
 
 # Launch the graph in a session
 with tf.Session() as sess:
+	# writer = tf.summary.FileWriter("project_graph") 
+	# writer.add_graph(sess.graph)
+
     # you need to initialize all variables
     tf.global_variables_initializer().run()
+    writer = tf.summary.FileWriter("project_graph")
+    writer.add_graph(sess.graph)
     print(range(0,len(trX),128))
     for i in range(100):
         for start, end in zip(range(0, len(trX), 128), range(128, len(trX)+1, 128)):
